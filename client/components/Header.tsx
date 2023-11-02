@@ -8,6 +8,7 @@ import { BiSolidContact, BiLogInCircle } from 'react-icons/bi'
 import { useRouter } from 'next/navigation'
 import { IoMdPersonAdd } from 'react-icons/io'
 import Link from 'next/link'
+import delToken from '@/app/helper/delToken'
 
 
 type propTypes = {
@@ -60,7 +61,7 @@ const Header = ({ access }: propTypes) => {
 
           {access ?
             <li
-              onClick={() => { router.push('/logout'); setShowMenu(false) }}
+              onClick={() => {  delToken(); setShowMenu(false) }}
               className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
               <BiLogInCircle
                 className="inline-block mr-2"

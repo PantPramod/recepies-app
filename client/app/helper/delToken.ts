@@ -3,5 +3,5 @@
 import { cookies } from 'next/headers'
 
 export default async function delToken() {
-    cookies().delete('name')
+    cookies().delete('access')
 }

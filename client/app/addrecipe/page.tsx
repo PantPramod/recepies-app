@@ -56,10 +56,10 @@ const Page = () => {
     }
     return (
         <div className=''>
-            <h2 className='text-3xl uppercase w-[50%] mx-auto mt-10'>Add New Recipe</h2>
+            <h2 className='text-3xl uppercase w-[90%] sm:w-[50%] mx-auto mt-10'>Add New Recipe</h2>
             <form
                 onSubmit={submitHandler}
-                className='w-[50%] mx-auto mt-5 '>
+                className='w-[90%] sm:w-[50%] mx-auto mt-5 '>
                 <div className=''>
                     <label>Title</label>
                     <input
@@ -124,7 +124,9 @@ const Page = () => {
 
                 <div className='mt-5'>
                     <p className='text-xl'>Ingredients:</p>
-                    {ingredients.map((ingredient, index: number) => (<div className='mt-5 flex items-center justify-between'>
+                    {ingredients.map((ingredient, index: number) => (<div
+                        key={ingredient.name}
+                        className='mt-5 flex items-center justify-between'>
                         <div className='w-[23%]'>
                             <label>Quantity</label>
                             <input
@@ -210,7 +212,9 @@ const Page = () => {
                 </div>
 
                 <p className='mt-5 text-xl'>Steps:</p>
-                {steps.map((step, index: number) => (<div className=''>
+                {steps.map((step, index: number) => (<div
+                    key={step.title}
+                    className=''>
                     <div className=' font-semibold uppercase mt-5 w-full flex justify-between'>
                         <span>Step {index + 1}:</span>
                         {

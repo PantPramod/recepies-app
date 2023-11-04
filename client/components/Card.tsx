@@ -18,7 +18,9 @@ export type propTypes = {
 const Card = ({ recipe }: propTypes) => {
     const { title, _id, cookTimeMinutes, coverImage, prepTimeMinutes, rating } = recipe
     return (
-        <Link href={`/recepies/${_id}`}>
+        <Link href={`/recepies/${_id}`}
+        key={_id}
+        >
             <div
                 className='w-full sm:w-[47%] md:w-[30%] min-w-[250px]   bg-white hover:border-r-yellow-400 hover:border-b-yellow-400 hover:-translate-x-1 hover:-translate-y-1 border-4 transition-all ease-in-out duration-300 cursor-pointer '>
                 <img

@@ -7,8 +7,11 @@ import { ToastContainer, toast } from 'react-toastify'
 import axios from 'axios'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css';
+import { saveUserDataLocalStorage } from '@/app/helper/saveUserDataLocalStorage'
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
+    const router = useRouter()
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -29,7 +32,15 @@ const LoginForm = () => {
             })
             console.log(data)
             toast.success("Logged In Successfully")
+            saveUserDataLocalStorage({
+                name: data?.name,
+                email: data?.email,
+                _id: data?._id
+            })
+            toast.success("Logged In Successfully")
             saveToken(data?.token)
+            router.push('/')
+
         } catch (err) {
             console.log(err)
             toast.error("Something went wrong!")

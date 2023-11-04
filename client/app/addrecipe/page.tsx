@@ -2,6 +2,8 @@
 import axios from 'axios'
 import React, { SyntheticEvent, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'
 
 const Page = () => {
     const [data, setData] = useState({
@@ -34,11 +36,12 @@ const Page = () => {
         const Steps = steps.map((step, index: number) => {
             return { ...step, no: index + 1 }
         })
+        const author = localStorage.getItem('name')
         try {
             const { data } = await axios.post('http://localhost:4000/api/recipe', {
                 title,
                 rating: 5,
-                author: "username",
+                author,
                 coverImage: [coverImage],
                 description,
                 prepTimeMinutes,
@@ -47,15 +50,18 @@ const Page = () => {
                 ingredients,
                 steps: Steps
             })
+            toast.success("Recipe published successfully.")
             console.log(data)
         } catch (err) {
             console.log(err)
+            toast.error("something went wrong")
         } finally {
 
         }
     }
     return (
         <div className=''>
+            <ToastContainer toastStyle={{ backgroundColor: "white" }} />
             <h2 className='text-3xl uppercase w-[90%] sm:w-[50%] mx-auto mt-10'>Add New Recipe</h2>
             <form
                 onSubmit={submitHandler}

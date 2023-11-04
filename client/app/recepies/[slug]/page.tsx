@@ -1,4 +1,6 @@
+import SaveButton from '@/components/SaveButton'
 import Star from '@/components/Star'
+import axios from 'axios'
 import React from 'react'
 import { AiFillCheckCircle, AiOutlineStar, AiFillPrinter } from 'react-icons/ai'
 import { FaRegHeart } from 'react-icons/fa'
@@ -21,8 +23,10 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
   const data: recipeType = await getData(params.slug)
   console.log("===================>", data)
-  const { _id, author, cookTimeMinutes, coverImage, description, ingredients, prepTimeMinutes, rating, serving
+  const { _id: recipeId, author, cookTimeMinutes, coverImage, description, ingredients, prepTimeMinutes, rating, serving
     , steps, title } = data
+
+
   return (
     <div className='w-[80%] mx-auto'>
       <h2 className='text-3xl font-bold mt-10'>{title}</h2>
@@ -49,13 +53,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       </p>
 
       <div className='flex items-center mt-4'>
-        <button className='hover:underline bg-red-500 text-white px-6 py-4 text-sm rounded-sm font-bold'>
-          Save
-          <FaRegHeart
-            className='inline ml-2'
-            size={20}
-          />
-        </button>
+        <SaveButton recipeId={recipeId} />
 
         <button className='hover:underline bg-gray-100  px-6 py-4 text-sm rounded-sm font-bold'>
           Rate

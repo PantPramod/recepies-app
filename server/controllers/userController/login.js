@@ -20,7 +20,7 @@ export const login = async (req, res, next) => {
         }
 
         const user = {
-            id: response.id,
+            id: response._id,
             name: response.name,
             email: response.email
         }
@@ -28,7 +28,13 @@ export const login = async (req, res, next) => {
         const token = jwt.sign({ user }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
 
-        res.status(200).json({ message: 'Login successful', token: token });
+        res.status(200).json({
+            message: 'Login successful',
+            token: token,
+            name: response.name,
+            email: response.email,
+            _id: response._id
+        });
 
     } catch (err) {
         next(err)

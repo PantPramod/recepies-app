@@ -1,6 +1,6 @@
 'use client'
 import axios from 'axios'
-import React, { SyntheticEvent, useState } from 'react'
+import React, { SyntheticEvent, useState, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify'
@@ -30,13 +30,28 @@ const Page = () => {
         }
     ])
 
+    const [nutritions, setNutritions] = useState([
+        {
+            name: '',
+            value: 0,
+            unit: '',
+        }
+    ])
+
+    const [author, setAuthor] = useState('')
+
+    useEffect(() => {
+        if (typeof window !== 'undefined')
+            setAuthor(localStorage.getItem('name') ?? "")
+    })
+
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault();
         const { title, cookTimeMinutes, coverImage, description, prepTimeMinutes, serving, } = data
         const Steps = steps.map((step, index: number) => {
             return { ...step, no: index + 1 }
         })
-        const author = localStorage.getItem('name')
+
         try {
             const { data } = await axios.post('http://localhost:4000/api/recipe', {
                 title,
@@ -48,7 +63,8 @@ const Page = () => {
                 cookTimeMinutes,
                 serving,
                 ingredients,
-                steps: Steps
+                steps: Steps,
+                nutritions
             })
             toast.success("Recipe published successfully.")
             console.log(data)
@@ -131,7 +147,7 @@ const Page = () => {
                 <div className='mt-5'>
                     <p className='text-xl'>Ingredients:</p>
                     {ingredients.map((ingredient, index: number) => (<div
-                        key={ingredient.name}
+                        key={index}
                         className='mt-5 flex items-center justify-between'>
                         <div className='w-[23%]'>
                             <label>Quantity</label>
@@ -219,7 +235,7 @@ const Page = () => {
 
                 <p className='mt-5 text-xl'>Steps:</p>
                 {steps.map((step, index: number) => (<div
-                    key={step.title}
+                    key={index}
                     className=''>
                     <div className=' font-semibold uppercase mt-5 w-full flex justify-between'>
                         <span>Step {index + 1}:</span>
@@ -291,7 +307,80 @@ const Page = () => {
                     }
                     className='bg-gray-500 hover:bg-gray-800 transition-all ease-in-out duration-300 text-white mt-5 rounded-md p-3 py-1 block ml-auto'>+</button>
 
-
+                <p className='mt-5 text-xl'>Nutritions:</p>
+                {nutritions.map((nutrition, index: number) => (<div
+                    key={index}
+                    className=''>
+                    <div className=' font-semibold uppercase mt-5 w-full flex justify-between'>
+                        <span>Nutrition {index + 1}:</span>
+                        {
+                            index != 0 &&
+                            <AiOutlineClose
+                                size={20}
+                                cursor="pointer"
+                                className='hover:bg-gray-200'
+                                onClick={() => {
+                                    nutritions.splice(index, 1)
+                                    setNutritions([...nutritions])
+                                }}
+                            />
+                        }
+                    </div>
+                    <div className='mt-2 '>
+                        <label>Name</label>
+                        <input
+                            type='text'
+                            placeholder='Name'
+                            className='border outline-none border-gray-400 w-full p-2 rounded-md'
+                            value={nutrition.name}
+                            onChange={(e) => {
+                                let a = { ...nutrition, name: e.target.value }
+                                nutritions[index] = a
+                                setNutritions([...nutritions])
+                            }}
+                        />
+                    </div>
+                    <div className='mt-5 '>
+                        <label>Unit</label>
+                        <input
+                            type='text'
+                            placeholder='Unit'
+                            className='border outline-none border-gray-400 w-full p-2 rounded-md'
+                            value={nutrition.unit}
+                            onChange={(e) => {
+                                let a = { ...nutrition, unit: e.target.value }
+                                nutritions[index] = a
+                                setNutritions([...nutritions])
+                            }}
+                        />
+                    </div>
+                    <div className='mt-5 '>
+                        <label>Value</label>
+                        <input
+                            type="number"
+                            placeholder='Value'
+                            className='border outline-none border-gray-400 w-full p-2 rounded-md '
+                            value={nutrition.value}
+                            onChange={(e) => {
+                                let a = { ...nutrition, value: +e.target.value }
+                                nutritions[index] = a
+                                setNutritions([...nutritions])
+                            }}
+                        />
+                    </div>
+                </div>))}
+                <button
+                    type='button'
+                    onClick={() => {
+                        nutritions[nutritions.length] = {
+                            name: '',
+                            value: 0,
+                            unit: ''
+                        }
+                        setNutritions([...nutritions])
+                    }
+                    }
+                    className='bg-gray-500 hover:bg-gray-800 transition-all ease-in-out duration-300 text-white mt-5 rounded-md p-3 py-1 block ml-auto'>+</button>
                 <button type='submit' className='mt-10 mb-10 w-full bg-gray-800 hover:bg-black transition-all ease-in-out duration-300 text-white p-2 rounded-md'>Publish</button>
             </form>
         </div>

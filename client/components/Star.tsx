@@ -9,16 +9,16 @@ const Star = ({ rating }: propTypes) => {
     if ([1, 2, 3, 4, 5].includes(rating))
         return (
             <>
-                {Array(rating).fill("a").map((item) => <AiTwotoneStar className='text-red-500' size={25} />)}
-                {Array(5 - rating).fill("a").map((item) => <AiOutlineStar className='text-red-500' size={25} />)}
+                {Array(rating).fill("a").map((item) => <AiTwotoneStar key={item} className='text-red-500' size={25} />)}
+                {Array(5 - rating).fill("a").map((item) => <AiOutlineStar key={item} className='text-red-500' size={25} />)}
             </>
         )
     else
         return (
             <>
-                {Array(Math.floor(rating)).fill("a").map((item) => <AiTwotoneStar className='text-red-500' size={25} />)}
+                {Array(Math.floor(rating)).fill("a").map((item) => <AiTwotoneStar key={item} className='text-red-500' size={25} />)}
                 <BiSolidStarHalf className='text-red-500' size={25} />
-                {Array(5 - Math.ceil(rating)).fill("a").map((item) => <AiOutlineStar className='text-red-500' size={25} />)}
+                {Array(5 - Math.ceil(rating)).fill("a").map((item) => <AiOutlineStar key={item} className='text-red-500' size={25} />)}
             </>)
 }
 

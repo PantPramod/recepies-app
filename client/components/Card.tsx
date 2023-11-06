@@ -19,18 +19,21 @@ const Card = ({ recipe }: propTypes) => {
     const { title, _id, cookTimeMinutes, coverImage, prepTimeMinutes, rating } = recipe
     return (
         <Link href={`/recepies/${_id}`}
-        key={_id}
+            key={_id}
+            className=' w-full sm:w-[47%] md:w-[30%] min-w-[250px]   bg-white hover:border-r-yellow-400 hover:border-b-yellow-400 hover:-translate-x-1 hover:-translate-y-1 border-4 transition-all ease-in-out duration-300 cursor-pointer '
         >
             <div
-                className='w-full sm:w-[47%] md:w-[30%] min-w-[250px]   bg-white hover:border-r-yellow-400 hover:border-b-yellow-400 hover:-translate-x-1 hover:-translate-y-1 border-4 transition-all ease-in-out duration-300 cursor-pointer '>
+                className=' '>
                 <img
                     src={coverImage[0]}
                     alt=""
-                    className='w-full '
+                    className='object-cover w-full overflow-hidden  h-[200px]'
+                    width={250}
+                    height={200}
                 />
                 <div className='px-4 mt-4'>
-                    <p className='text-[#CF6F0F] uppercase font-bold'>Healthy BreakFast</p>
-                    <p className='text-2xl mt-1'>{title}</p>
+                    <p className='text-[#CF6F0F] uppercase font-bold text-sm'>Healthy BreakFast</p>
+                    <p className='text-xl mt-1 h-[50px]'>{title.toLowerCase()}</p>
 
                     <div className='flex items-center justify-between mt-10 pb-4 gap-x-4'>
                         <div className='flex items-center'>

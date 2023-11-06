@@ -26,6 +26,13 @@ const recipeSchema = new mongoose.Schema({
             image: [{type:String}],
             description: String
         }
+    ],
+    nutritions:[
+        {
+            name:String,
+            value:Number,
+            unit:String
+        }
     ]
 
 })

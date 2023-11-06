@@ -1,3 +1,5 @@
+import PrintButton from '@/components/PrintButton'
+import PrintButton2 from '@/components/PrintButton2'
 import SaveButton from '@/components/SaveButton'
 import Star from '@/components/Star'
 import axios from 'axios'
@@ -63,13 +65,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           />
         </button>
 
-        <button className=' hover:underline bg-gray-100 pr-6 py-4 text-sm rounded-sm font-bold'>
-          <span className=' border-black border-l pl-6'>Print</span>
-          <AiFillPrinter
-            className='inline ml-2 text-red-500'
-            size={20}
-          />
-        </button>
+        <PrintButton />
 
         <button className='hover:underline bg-gray-100  pr-6 py-4 text-sm rounded-sm font-bold'>
           <span className='border-black border-l pl-6'>Share</span>
@@ -80,7 +76,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
         </button>
       </div>
 
-      <img src="https://www.allrecipes.com/thmb/53SMspkec_Suf9NLSMRucREQyTU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7497387-chickpea-tikka-masala-ddmfs_4x3_1791-e0838138030a4b55ac7340027bc2b47f.jpg"
+      <img src={coverImage[0] ?? "https://www.allrecipes.com/thmb/53SMspkec_Suf9NLSMRucREQyTU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7497387-chickpea-tikka-masala-ddmfs_4x3_1791-e0838138030a4b55ac7340027bc2b47f.jpg"}
         alt=""
         className='w-1/2 mt-5 '
       />
@@ -128,13 +124,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           I Made it
         </button>
 
-        <button className=' w-1/2 border border-red-500 text-red-500 hover:text-white  py-3 rounded-md uppercase text-sm font-semibold hover:bg-red-600'>
-          <span className=''>Print</span>
-          <AiFillPrinter
-            className='inline ml-2 '
-            size={20}
-          />
-        </button>
+        <PrintButton2 />
       </div>
 
       <p className='mt-10 font-bold text-2xl'>Nutritions</p>

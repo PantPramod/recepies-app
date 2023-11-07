@@ -27,7 +27,7 @@ const Card = ({ recipe }: propTypes) => {
                 <img
                     src={coverImage[0]}
                     alt=""
-                    className='object-cover w-full overflow-hidden  h-[200px]'
+                    className='object-cover w-full overflow-hidden h-[200px]'
                     width={250}
                     height={200}
                 />

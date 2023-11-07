@@ -13,6 +13,8 @@ import { FaRegHeart } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa'
 import SavedRecipe from './SavedRecipe'
 import axios from 'axios'
+import { useAppDispatch, useAppSelector } from '@/app/Redux/hooks'
+import { increment } from '@/app/Redux/Features/counterSlice'
 
 
 type propTypes = {
@@ -25,10 +27,10 @@ const Header = ({ access }: propTypes) => {
   const [userId, setUserId] = useState('')
   const [name, setName] = useState('')
   const [allRecipes, setAllRecipes] = useState<any>([])
-
+ 
   const router = useRouter()
-
-
+  // const count = useAppSelector((state) => state.counter.value);
+  // const dispatch = useAppDispatch();
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setName(localStorage.getItem("name") ?? "");
@@ -58,6 +60,7 @@ const Header = ({ access }: propTypes) => {
         <span
           className="cursor-pointer bg-red-500 text-slate-100 px-2 rounded-md text-2xl font-bold uppercase font-serif">Food Receipies</span>
       </Link>
+
       <div className='flex items-center gap-x-4'>
         {access &&
           <>
@@ -194,7 +197,7 @@ const Header = ({ access }: propTypes) => {
 
               )
             }
-            <Link href="/savedrecipes" className='w-full' onClick={()=>setShowSavedRecipe(false)}>
+            <Link href="/savedrecipes" className='w-full' onClick={() => setShowSavedRecipe(false)}>
               <p className='mt-5 uppercase font-bold text-center bg-green-500 py-2 rounded-md text-white w-full cursor-pointer'>Show More</p>
             </Link>
           </div>

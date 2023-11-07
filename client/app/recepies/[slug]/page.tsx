@@ -2,10 +2,9 @@ import PrintButton from '@/components/PrintButton'
 import PrintButton2 from '@/components/PrintButton2'
 import SaveButton from '@/components/SaveButton'
 import Star from '@/components/Star'
-import axios from 'axios'
 import React from 'react'
-import { AiFillCheckCircle, AiOutlineStar, AiFillPrinter } from 'react-icons/ai'
-import { FaRegHeart } from 'react-icons/fa'
+import { AiFillCheckCircle, AiOutlineStar } from 'react-icons/ai'
+
 import { IoMdShareAlt } from 'react-icons/io'
 
 async function getData(a: string) {
@@ -24,9 +23,8 @@ async function getData(a: string) {
 const Page = async ({ params }: { params: { slug: string } }) => {
 
   const data: recipeType = await getData(params.slug)
-  console.log("===================>", data)
   const { _id: recipeId, author, cookTimeMinutes, coverImage, description, ingredients, prepTimeMinutes, rating, serving
-    , steps, title } = data
+    , steps, title, nutritions } = data
 
 
   return (
@@ -128,23 +126,14 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       </div>
 
       <p className='mt-10 font-bold text-2xl'>Nutritions</p>
-      <div className='flex items-center w-1/2 justify-between mt-5'>
-        <div className=''>
-          <p className='font-bold'>485</p>
-          <p className='mt-4'>Calories</p>
-        </div>
-        <div className=''>
-          <p className='font-bold'>10 g</p>
-          <p className='mt-4'>Fat</p>
-        </div>
-        <div className=''>
-          <p className='font-bold'>80 g</p>
-          <p className='mt-4'>Carbs</p>
-        </div>
-        <div className=''>
-          <p className='font-bold'>22 g</p>
-          <p className='mt-4'>Protein</p>
-        </div>
+
+
+
+      <div className='flex items-center w-1/2 justify-between mt-5 bg-gray-200 p-4 rounded-md'>
+        {nutritions?.map((nutrition: any, index: number) => <div className='' key={index}>
+          <p className='font-bold'>{nutrition?.value}{" "}{nutrition?.unit}</p>
+          <p className='mt-4'>{nutrition?.name}</p>
+        </div>)}
       </div>
       <p className='mt-5 border-b border-red-500 mb-10 inline-block'>Show full nuterition label</p>
     </div>
@@ -165,12 +154,13 @@ type recipeType = {
   cookTimeMinutes: number,
   serving: number,
   ingredients: [
-    qty: string,
-    unit: string,
-    name: string,
-    name: string,
-    note: string,
-    _id: string
+    {
+      qty: string,
+      unit: string,
+      name: string,
+      note: string,
+      _id: string
+    }
   ],
   steps: [
     {
@@ -179,6 +169,13 @@ type recipeType = {
       image: any,
       description: string,
       _id: string
+    }
+  ],
+  nutritions?: [
+    {
+      name: string,
+      value: number,
+      unit: string
     }
   ]
 

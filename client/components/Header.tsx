@@ -68,6 +68,15 @@ const Header = ({ access }: propTypes) => {
       console.log(err)
     }
   }
+
+  const logoutHandler = () => {
+    localStorage.removeItem("_id");
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    setShowMenu(false)
+    delToken();
+  }
+
   return (
     <header className='z-[9999] w-full flex   p-2 shadow-md max-w-screen items-center justify-between'>
 
@@ -85,8 +94,9 @@ const Header = ({ access }: propTypes) => {
               onClick={() => setShowSavedRecipe(prev => !prev)}
               cursor="pointer"
             />
-
-            <div className='w-8 h-8 bg-blue-600 text-white flex items-center justify-center rounded-full cursor-pointer'>{name[0]}</div>
+            {
+              <div className='w-8 h-8 bg-blue-600 text-white flex items-center justify-center rounded-full cursor-pointer'>{name[0]}</div>
+            }
           </>
         }
 
@@ -137,7 +147,7 @@ const Header = ({ access }: propTypes) => {
                 Saved Recipies
               </li>
               <li
-                onClick={() => { delToken(); setShowMenu(false) }}
+                onClick={logoutHandler}
                 className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
                 <BiLogInCircle
                   className="inline-block mr-2"

@@ -4,11 +4,11 @@ import React, { useState, SyntheticEvent } from 'react'
 import Loader from './Loader'
 import saveToken from '@/app/helper/saveToken'
 import { ToastContainer, toast } from 'react-toastify'
-import axios from 'axios'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css';
 import { saveUserDataLocalStorage } from '@/app/helper/saveUserDataLocalStorage'
 import { useRouter } from 'next/navigation'
+import axios from '@/axios/axios'
 
 const LoginForm = () => {
     const router = useRouter()
@@ -26,7 +26,7 @@ const LoginForm = () => {
         const { email, password } = user
         try {
             setShow({ ...show, processing: true })
-            const { data } = await axios.post('http://localhost:4000/api/user/login', {
+            const { data } = await axios.post('/user/login', {
                 email,
                 password,
             })

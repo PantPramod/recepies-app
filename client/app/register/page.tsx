@@ -1,11 +1,11 @@
 "use client"
 import Loader from '@/components/Loader'
-import axios from 'axios'
 import Link from 'next/link'
 import React, { useState, SyntheticEvent } from 'react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from '@/axios/axios'
 
 const Register = () => {
     const [user, setUser] = useState({
@@ -25,7 +25,7 @@ const Register = () => {
         const { name, email, password } = user
         try {
             setShow({ ...show, processing: true })
-            const { data } = await axios.post('http://localhost:4000/api/user/register', {
+            const { data } = await axios.post('/api/user/register', {
                 name,
                 email,
                 password,

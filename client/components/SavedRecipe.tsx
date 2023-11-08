@@ -1,16 +1,22 @@
 import React from 'react'
 import Star from './Star'
+import { MdDeleteForever } from 'react-icons/md'
 
 type propTypes = {
+    _id: string,
     thumbnail: string,
     title: string,
     description: string,
     rating: 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5,
     author: string,
     totalTimeInMinutes: number,
-    isSlider?: boolean
+    isSlider?: boolean,
+    delRecipe: () => void
 }
-const SavedRecipe = ({ isSlider, thumbnail, title, description, rating, author, totalTimeInMinutes }: propTypes) => {
+const SavedRecipe = ({ _id, isSlider, thumbnail, title, description, rating, author, totalTimeInMinutes, delRecipe }: propTypes) => {
+
+
+
     return (
         <div className='cursor-pointer  flex items-center gap-x-6 bg-gray-100 py-4 w-full rounded-md border-b-4 border-b-gray-300'>
             <img
@@ -30,6 +36,13 @@ const SavedRecipe = ({ isSlider, thumbnail, title, description, rating, author, 
                     <p className='mt-2 text-sm'>{description}</p>
                 }
             </div>
+
+            <MdDeleteForever
+                onClick={delRecipe}
+                className="text-red-500 hover:scale-110 hover:text-red-600 transition-all ease-in-out duration-300"
+                cursor="pointer"
+                size={25}
+            />
         </div>
     )
 }

@@ -12,9 +12,11 @@ import delToken from '@/app/helper/delToken'
 import { FaRegHeart } from 'react-icons/fa'
 import { FaHeart } from 'react-icons/fa'
 import SavedRecipe from './SavedRecipe'
-import axios from 'axios'
 import { useAppDispatch, useAppSelector } from '@/app/Redux/hooks'
-import { increment } from '@/app/Redux/Features/counterSlice'
+import { toogleFlag } from '@/app/Redux/Features/counterSlice'
+import Image from 'next/image'
+import axios from '@/axios/axios'
+
 
 
 type propTypes = {
@@ -27,10 +29,12 @@ const Header = ({ access }: propTypes) => {
   const [userId, setUserId] = useState('')
   const [name, setName] = useState('')
   const [allRecipes, setAllRecipes] = useState<any>([])
- 
+
   const router = useRouter()
-  // const count = useAppSelector((state) => state.counter.value);
-  // const dispatch = useAppDispatch();
+  const flag = useAppSelector((state) => state.counter.flag);
+  const dispatch = useAppDispatch()
+
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setName(localStorage.getItem("name") ?? "");
@@ -38,21 +42,32 @@ const Header = ({ access }: propTypes) => {
     }
   }, [])
 
-
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(`/recipe/savedrecipe/${userId}`)
+      console.log(data)
+      setAllRecipes([...data])
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios.get(`http://localhost:4000/api/recipe/savedrecipe/${userId}`)
-        console.log(data)
-        setAllRecipes([...data])
-      } catch (err) {
-        console.log(err)
-      }
-    }
+
     if (userId)
       getData()
-  }, [userId])
+
+  }, [userId, flag])
+
+  const delRecipe = async (id: string) => {
+    try {
+      const { data } = await axios.delete(`/recipe/savedrecipe/${id}`)
+      dispatch(toogleFlag())
+      console.log(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <header className='z-[9999] w-full flex   p-2 shadow-md max-w-screen items-center justify-between'>
 
@@ -113,7 +128,7 @@ const Header = ({ access }: propTypes) => {
           {access ?
             <>
               <li
-                onClick={() => { router.push('savedrecipes'); setShowMenu(false) }}
+                onClick={() => { router.push('/savedrecipes'); setShowMenu(false) }}
                 className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
                 <FaRegHeart
                   className='inline mr-2'
@@ -171,11 +186,24 @@ const Header = ({ access }: propTypes) => {
             onClick={() => setShowSavedRecipe(false)}
           />
           <p className='mt-5 font-bold uppercase text-center text-gray-500'>Saved Recipies</p>
+          {
+            allRecipes.length === 0 && <>
 
+              <Image
+                src="/empty.png"
+                width={200}
+                height={150}
+                className='object-contain mt-5  mx-auto'
+                alt=""
+              />
+              <p className='text-green-500 text-xl mt-4  text-center '>No Recipe Saved</p>
+            </>
+          }
           <div className='flex flex-wrap items-center justify-evenly w-full pt-10  gap-y-10 px-10'>
             {
-              allRecipes.slice(0, 3).map((recipe: any) => <>
+              allRecipes.slice(0, 2).map((recipe: any) => <>
                 <SavedRecipe
+                  _id={recipe?._id}
                   author={recipe?.recipeId?.author}
                   description={recipe?.recipeId?.description}
                   rating={recipe?.recipeId?.rating}
@@ -183,23 +211,16 @@ const Header = ({ access }: propTypes) => {
                   title={recipe?.recipeId?.title}
                   totalTimeInMinutes={recipe?.recipeId?.prepTimeMinutes + recipe?.recipeId?.cookTimeMinutes}
                   isSlider
+                  delRecipe={() => delRecipe(recipe?._id)}
                 />
-                <SavedRecipe
-                  author={recipe?.recipeId?.author}
-                  description={recipe?.recipeId?.description}
-                  rating={recipe?.recipeId?.rating}
-                  thumbnail={recipe?.recipeId?.coverImage[0]}
-                  title={recipe?.recipeId?.title}
-                  totalTimeInMinutes={recipe?.recipeId?.prepTimeMinutes + recipe?.recipeId?.cookTimeMinutes}
-                  isSlider
-                />
+
               </>
 
               )
             }
-            <Link href="/savedrecipes" className='w-full' onClick={() => setShowSavedRecipe(false)}>
+            {allRecipes.length > 2 && <Link href="/savedrecipes" className='w-full' onClick={() => setShowSavedRecipe(false)}>
               <p className='mt-5 uppercase font-bold text-center bg-green-500 py-2 rounded-md text-white w-full cursor-pointer'>Show More</p>
-            </Link>
+            </Link>}
           </div>
 
         </div>

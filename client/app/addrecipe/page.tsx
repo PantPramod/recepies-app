@@ -13,6 +13,7 @@ const Page = () => {
         prepTimeMinutes: 0,
         cookTimeMinutes: 0,
         serving: 0,
+        youtubeId: ''
     })
     const [ingredients, setIngredients] = useState([
         {
@@ -47,7 +48,7 @@ const Page = () => {
 
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault();
-        const { title, cookTimeMinutes, coverImage, description, prepTimeMinutes, serving, } = data
+        const { title, cookTimeMinutes, coverImage, description, prepTimeMinutes, serving, youtubeId } = data
         const Steps = steps.map((step, index: number) => {
             return { ...step, no: index + 1 }
         })
@@ -64,7 +65,8 @@ const Page = () => {
                 serving,
                 ingredients,
                 steps: Steps,
-                nutritions
+                nutritions,
+                youtubeId
             })
             toast.success("Recipe published successfully.")
             console.log(data)
@@ -89,6 +91,16 @@ const Page = () => {
                         className='border outline-none border-gray-400 w-full p-2 rounded-md' placeholder='title'
                         value={data.title}
                         onChange={(e) => setData({ ...data, title: e.target.value })}
+                    />
+                </div>
+                <div className='mt-5'>
+                    <label>Youtbe Id</label>
+                    <input
+                        type='text'
+                        className='border outline-none border-gray-400 w-full p-2 rounded-md'
+                        placeholder='Youtube Id'
+                        value={data?.youtubeId}
+                        onChange={(e) => setData({ ...data, youtubeId: e.target.value })}
                     />
                 </div>
                 <div className='mt-5'>

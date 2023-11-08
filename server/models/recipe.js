@@ -6,7 +6,7 @@ const recipeSchema = new mongoose.Schema({
     author: { type: String, required: true, trim: true },
     coverImage: [
         { type: String }
-    ], 
+    ],
     description: { type: String, trim: true },
     prepTimeMinutes: { type: Number },
     cookTimeMinutes: { type: Number },
@@ -23,17 +23,18 @@ const recipeSchema = new mongoose.Schema({
         {
             no: String,
             title: String,
-            image: [{type:String}],
+            image: [{ type: String }],
             description: String
         }
     ],
-    nutritions:[
+    nutritions: [
         {
-            name:String,
-            value:Number,
-            unit:String
+            name: String,
+            value: Number,
+            unit: String
         }
-    ]
+    ],
+    youtubeId: { type: String }
 
 })
 

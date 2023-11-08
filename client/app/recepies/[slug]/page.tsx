@@ -24,7 +24,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
   const data: recipeType = await getData(params.slug)
   const { _id: recipeId, author, cookTimeMinutes, coverImage, description, ingredients, prepTimeMinutes, rating, serving
-    , steps, title, nutritions } = data
+    , steps, title, nutritions, youtubeId } = data
 
 
   return (
@@ -73,6 +73,17 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           />
         </button>
       </div>
+      {
+        youtubeId &&
+        <iframe
+          width="420"
+          height="315"
+          src={`https://www.youtube.com/embed/${youtubeId}?controls=1`}
+          className='mt-10 w-1/2'
+        >
+        </iframe>
+      }
+
 
       <img src={coverImage[0] ?? "https://www.allrecipes.com/thmb/53SMspkec_Suf9NLSMRucREQyTU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7497387-chickpea-tikka-masala-ddmfs_4x3_1791-e0838138030a4b55ac7340027bc2b47f.jpg"}
         alt=""
@@ -107,12 +118,12 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
       {
         steps.map((step: any, index: number) => <>
-          <p className='mt-5 font-bold'>Step {index + 1}:-{" "}{step?.title}</p>
+          <p className='mt-10 font-bold w-1/2'>Step {index + 1}:-{" "}{step?.title}</p>
 
-          <p className=''>{step?.description}</p>
+          <p className='mt-3 w-1/2'>{step?.description}</p>
           <img src={step?.image[0] ?? "https://www.allrecipes.com/thmb/lf56yDXykbAFIYvRtwfpGYRbFr4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7497387-chickpea-tikka-masala-ddmfs-step-1-1752-b6d361881b5148f29f99cd09bde68424.jpg"}
             alt=""
-            className='mt-2 w-1/2'
+            className='mt-4 w-1/2'
           />
         </>)
       }
@@ -177,6 +188,7 @@ type recipeType = {
       value: number,
       unit: string
     }
-  ]
+  ],
+  youtubeId?: string
 
 }

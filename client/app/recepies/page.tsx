@@ -1,7 +1,8 @@
 import RoundedCard from '@/components/RoundedCard'
+import baseUrl from '@/config/baseUrl'
 import React from 'react'
 async function getData() {
-    const res = await fetch(`http://localhost:4000/api/recipe/category`)
+    const res = await fetch(`${baseUrl}recipe/category`)
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
 

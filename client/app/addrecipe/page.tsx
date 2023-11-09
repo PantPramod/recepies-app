@@ -4,6 +4,7 @@ import React, { SyntheticEvent, useState, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify'
+import baseUrl from '@/config/baseUrl';
 
 const Page = () => {
     const [data, setData] = useState({
@@ -55,7 +56,7 @@ const Page = () => {
         })
 
         try {
-            const { data } = await axios.post('http://localhost:4000/api/recipe', {
+            const { data } = await axios.post(`${baseUrl}recipe`, {
                 title,
                 rating: 5,
                 author,

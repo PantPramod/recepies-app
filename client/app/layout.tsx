@@ -22,7 +22,7 @@ export default function RootLayout({
   const access = cookieStore.get('access')
   return (
     <html lang="en">
-      <body className={`${inter.className} `}>
+      <body className={``}>
         <Providers>
           <Header access={access?.value || ''} />
           <LowerHeader />

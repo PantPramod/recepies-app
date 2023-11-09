@@ -78,11 +78,11 @@ const Header = ({ access }: propTypes) => {
   }
 
   return (
-    <header className='z-[9999] w-full flex   p-2 shadow-md max-w-screen items-center justify-between'>
+    <header className='sticky top-0 bg-white z-[9999] w-full flex   p-2 shadow-md max-w-screen items-center justify-between'>
 
       <Link href="/">
         <span
-          className="cursor-pointer bg-red-500 text-slate-100 px-2 rounded-md text-2xl font-bold uppercase font-serif">Food Receipies</span>
+          className="cursor-pointer bg-[#B2533E] text-slate-100 px-2 rounded-md text-2xl font-bold uppercase font-serif">Food Receipies</span>
       </Link>
 
       <div className='flex items-center gap-x-4'>
@@ -111,10 +111,10 @@ const Header = ({ access }: propTypes) => {
         onClick={() => { setShowMenu(false); setShowSavedRecipe(false) }}
         className={`fixed left-0 right-0 top-0 bottom-0 bg-[#00000050] ${showMenu || showSavedRecipe ? "translate-x-0" : "translate-x-[100%]"} z-[999]`}>
       </div>
-      <div className={`bg-white w-[100%] sm:w-[400px] h-screen ml-auto fixed right-0 top-0 bottom-0   ${showMenu ? "translate-x-0" : "translate-x-[100%]"} transition-all ease-in-out duration-300 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] z-[9999]`}>
+      <div className={` bg-[#186F65] text-[#B5CB99] w-[100%] sm:w-[400px] h-screen ml-auto fixed right-0 top-0 bottom-0   ${showMenu ? "translate-x-0" : "translate-x-[100%]"} transition-all ease-in-out duration-300 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] z-[9999]`}>
         <AiOutlineClose
 
-          className='ml-auto mt-4 mr-4 hover:text-blue-700 transition-all ease-in-out duration-300'
+          className='ml-auto mt-4 mr-4 hover:text-[#FCE09B] transition-all ease-in-out duration-300'
           size={25}
           cursor="pointer"
           onClick={() => setShowMenu(false)}
@@ -122,24 +122,24 @@ const Header = ({ access }: propTypes) => {
         <ul className='px-10 uppercase text-xl font-semibold'>
           <li
             onClick={() => { router.push('/'); setShowMenu(false) }}
-            className='py-4 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><AiFillHome className='inline-block mr-2' size={25} /> Home</li>
+            className='py-4 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><AiFillHome className='inline-block mr-2' size={25} /> Home</li>
           <li
             onClick={() => { router.push('/recepies'); setShowMenu(false) }}
-            className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
+            className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
             <MdFastfood
               className="inline-block mr-2"
               size={25}
             />
             Receipes
           </li>
-          <li className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><TbFileInfo className="inline-block mr-2" size={25} /> About</li>
-          <li className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><BiSolidContact className="inline-block mr-2" size={25} />Contact</li>
+          <li className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><TbFileInfo className="inline-block mr-2" size={25} /> About</li>
+          <li className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><BiSolidContact className="inline-block mr-2" size={25} />Contact</li>
 
           {access ?
             <>
               <li
                 onClick={() => { router.push('/savedrecipes'); setShowMenu(false) }}
-                className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
+                className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
                 <FaRegHeart
                   className='inline mr-2'
                   size={25}
@@ -148,7 +148,7 @@ const Header = ({ access }: propTypes) => {
               </li>
               <li
                 onClick={logoutHandler}
-                className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
+                className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
                 <BiLogInCircle
                   className="inline-block mr-2"
                   size={25}
@@ -161,7 +161,7 @@ const Header = ({ access }: propTypes) => {
 
               <li
                 onClick={() => { router.push('/register'); setShowMenu(false) }}
-                className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
+                className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
                 <IoMdPersonAdd
                   className="inline-block mr-2"
                   size={25}
@@ -170,7 +170,7 @@ const Header = ({ access }: propTypes) => {
               </li>
               <li
                 onClick={() => { router.push('/login'); setShowMenu(false) }}
-                className='py-4 mt-2 hover:text-blue-700 hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
+                className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
                 <BiLogInCircle
                   className="inline-block mr-2"
                   size={25}
@@ -188,9 +188,9 @@ const Header = ({ access }: propTypes) => {
       </div>
 
       {
-        <div className={` px-4 bg-white w-[100%] sm:w-[400px] h-screen ml-auto fixed right-0 top-0 bottom-0   ${showSavedRecipe ? "translate-x-0" : "translate-x-[100%]"} transition-all ease-in-out duration-300 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] z-[9999]`}>
+        <div className={`overflow-y-auto px-4 bg-white w-[100%] sm:w-[400px] h-screen ml-auto fixed right-0 top-0 bottom-0   ${showSavedRecipe ? "translate-x-0" : "translate-x-[100%]"} transition-all ease-in-out duration-300 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] z-[9999]`}>
           <AiOutlineClose
-            className='ml-auto mt-4 mr-4 hover:text-blue-700 transition-all ease-in-out duration-300'
+            className='ml-auto mt-4 mr-4 hover:text-[#FCE09B] transition-all ease-in-out duration-300'
             size={25}
             cursor="pointer"
             onClick={() => setShowSavedRecipe(false)}
@@ -209,7 +209,7 @@ const Header = ({ access }: propTypes) => {
               <p className='text-green-500 text-xl mt-4  text-center '>No Recipe Saved</p>
             </>
           }
-          <div className='flex flex-wrap items-center justify-evenly w-full pt-10  gap-y-10 px-10'>
+          <div className='flex flex-wrap items-center justify-evenly w-full pt-10  gap-y-10 px-2 sm:px-10'>
             {
               allRecipes.slice(0, 2).map((recipe: any) => <>
                 <SavedRecipe
@@ -228,7 +228,7 @@ const Header = ({ access }: propTypes) => {
 
               )
             }
-            {allRecipes.length > 2 && <Link href="/savedrecipes" className='w-full' onClick={() => setShowSavedRecipe(false)}>
+            {allRecipes.length > 0 && <Link href="/savedrecipes" className='w-full mb-10' onClick={() => setShowSavedRecipe(false)}>
               <p className='mt-5 uppercase font-bold text-center bg-green-500 py-2 rounded-md text-white w-full cursor-pointer'>Show More</p>
             </Link>}
           </div>

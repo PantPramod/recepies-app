@@ -25,7 +25,7 @@ const Register = () => {
         const { name, email, password } = user
         try {
             setShow({ ...show, processing: true })
-            const { data } = await axios.post('/api/user/register', {
+            const { data } = await axios.post('/user/register', {
                 name,
                 email,
                 password,
@@ -55,8 +55,8 @@ const Register = () => {
             </style>
             <form
                 onSubmit={submitHandler}
-                className=' w-[90%] sm:w-[50%] px-10 py-10 rounded-2xl shadow shadow-xl bg-gray-50     max-w-[400px] bg-white mx-auto text-sm'>
-                <h2 className='text-3xl text-center uppercase'>Create Account</h2>
+                className=' w-[96%] sm:w-[50%] px-4 sm:px-10 py-10 rounded-2xl  shadow-xl  max-w-[400px] bg-white mx-auto text-sm'>
+                <h2 className='text-2xl sm:text-3xl text-center uppercase'>Create Account</h2>
                 <input
                     type='text'
                     placeholder='Name'

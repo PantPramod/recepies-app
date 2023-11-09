@@ -38,7 +38,7 @@ const SaveButton = ({ recipeId }: propTypes) => {
     return (
         <button
             onClick={saveRecipe}
-            className='hover:underline bg-red-500 text-white px-6 py-4 text-sm rounded-sm font-bold'>
+            className='w-full hover:underline bg-[#186F65] text-white px-6 py-4 text-sm rounded-sm font-bold'>
             Save
             <FaRegHeart
                 className='inline ml-2'

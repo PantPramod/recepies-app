@@ -49,11 +49,11 @@ const Page = () => {
 
     console.log("all", allRecipes)
     return (
-        <>
+        <div className='py-10 px-4 sm:px-10 md:px-14 xl:px-16'>
             <ToastContainer />
 
-            <div className='w-[80%] mx-auto'>
-                <h2 className='text-3xl '>Saved Recipies</h2>
+            <div className=''>
+                <h2 className='text-2xl sm:text-3xl '>Saved Recipies</h2>
                 {
                     allRecipes.length === 0 && <>
                         <Image
@@ -66,12 +66,12 @@ const Page = () => {
                         <p className='text-green-500 text-xl mt-4  text-center '>No Recipe Saved</p>
                     </>
                 }
-                <div className='flex flex-wrap items-center justify-evenly w-full pt-10  gap-y-10 px-10'>
+                <div className='flex flex-wrap items-center justify-evenly w-full pt-10  gap-y-10 px-2 sm:px-10'>
 
                     {
                         allRecipes.map((recipe: any) => <>
                             <SavedRecipe
-                                _id={recipe?._id}
+                                _id={recipe?.recipeId?._id}
                                 author={recipe?.recipeId?.author}
                                 description={recipe?.recipeId?.description}
                                 rating={recipe?.recipeId?.rating}
@@ -79,6 +79,7 @@ const Page = () => {
                                 title={recipe?.recipeId?.title}
                                 totalTimeInMinutes={recipe?.recipeId?.prepTimeMinutes + recipe?.recipeId?.cookTimeMinutes}
                                 delRecipe={() => delRecipe(recipe?._id)}
+                                isClickable
                             />
                         </>
 
@@ -88,7 +89,7 @@ const Page = () => {
                 </div>
 
             </div>
-        </>
+        </div>
     )
 }
 

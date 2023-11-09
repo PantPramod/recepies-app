@@ -61,8 +61,8 @@ const LoginForm = () => {
             </style>
             <form
                 onSubmit={loginHandler}
-                className=' w-[90%] sm:w-[50%] px-10 py-10 rounded-2xl  shadow-xl  max-w-[400px] bg-white mx-auto text-sm'>
-                <h2 className='text-3xl text-center uppercase'>Login Account</h2>
+                className=' w-[96%] sm:w-[50%] px-4 sm:px-10 py-10 rounded-2xl  shadow-xl  max-w-[400px] bg-white mx-auto text-sm'>
+                <h2 className='text-2xl sm:text-3xl text-center uppercase'>Login Account</h2>
 
                 <input
                     type='email'

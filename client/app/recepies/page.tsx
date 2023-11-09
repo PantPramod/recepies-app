@@ -19,7 +19,7 @@ const Page = async () => {
 
     return (<div className='flex flex-wrap items-center gap-y-6 sm:gap-x-[3.5%] md:gap-x-[4%] mt-10'>
         {
-            categories.map((category: string) => <div className=' w-full sm:w-[30%] md:w-[22%]  min-w-[200px]'>
+            categories.map((category: string) => <div key={category} className=' w-full sm:w-[30%] md:w-[22%]  min-w-[200px]'>
                 <RoundedCard imgSrc={wordToImage(category)}
                 />
                 <p className='text-center uppercase'>{category}</p>

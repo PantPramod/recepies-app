@@ -108,7 +108,7 @@ const LoginForm = () => {
                     Login
                 </button>
                 <p className='mt-2 text-blue-600 hover:text-blue-800 hover:underline transition-all ease-in-out duration-300'>
-                    <Link href="/register" >don't have an account. Click here to Register</Link>
+                    <Link href="/register" >don&apos;t have an account. Click here to Register</Link>
                 </p>
             </form>
             {

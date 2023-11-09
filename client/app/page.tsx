@@ -24,7 +24,7 @@ const Page = async () => {
       {/* <ReactCarousel /> */}
       <div className='flex pb-10 flex-wrap items-center justify-evenly w-full pt-10  gap-y-10 px-10'>
         {
-          recipes.map((recipe: any) => <Card recipe={recipe} />)
+          recipes.map((recipe: any) => <Card recipe={recipe} key={recipe._id}/>)
         }
 
       </div>

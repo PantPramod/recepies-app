@@ -12,15 +12,16 @@ export type propTypes = {
         coverImage: string[],
         prepTimeMinutes: number,
         cookTimeMinutes: number,
-        category?:string
-    }
+        category?: string
+    },
+    key: string
 }
 
-const Card = ({ recipe }: propTypes) => {
+const Card = ({ recipe, key }: propTypes) => {
     const { title, _id, cookTimeMinutes, coverImage, prepTimeMinutes, rating, category } = recipe
     return (
         <Link href={`/recepies/${_id}`}
-            key={_id}
+            key={key}
             className=' w-full sm:w-[47%] md:w-[30%] min-w-[250px]   bg-white hover:border-6 hover:border-r-[#186f65a9] hover:border-b-[#186f65a9] hover:-translate-x-1 hover:-translate-y-1 border-4 transition-all ease-in-out duration-300 cursor-pointer rounded-md'
         >
             <div

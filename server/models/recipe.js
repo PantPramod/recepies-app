@@ -34,7 +34,8 @@ const recipeSchema = new mongoose.Schema({
             unit: String
         }
     ],
-    youtubeId: { type: String }
+    youtubeId: { type: String },
+    category: { type: String }
 
 })
 

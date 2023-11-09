@@ -11,12 +11,13 @@ export type propTypes = {
         rating: 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5,
         coverImage: string[],
         prepTimeMinutes: number,
-        cookTimeMinutes: number
+        cookTimeMinutes: number,
+        category?:string
     }
 }
 
 const Card = ({ recipe }: propTypes) => {
-    const { title, _id, cookTimeMinutes, coverImage, prepTimeMinutes, rating } = recipe
+    const { title, _id, cookTimeMinutes, coverImage, prepTimeMinutes, rating, category } = recipe
     return (
         <Link href={`/recepies/${_id}`}
             key={_id}
@@ -32,7 +33,7 @@ const Card = ({ recipe }: propTypes) => {
                     height={200}
                 />
                 <div className='px-4 mt-4'>
-                    <p className='text-[#CF6F0F] uppercase font-bold text-sm'>Healthy BreakFast</p>
+                    <p className='text-[#CF6F0F] uppercase font-bold text-sm'>Healthy {category}</p>
                     <p className='text-xl mt-1 h-[50px]'>{title.toLowerCase()}</p>
 
                     <div className='flex items-center justify-between mt-10 pb-4 gap-x-4'>

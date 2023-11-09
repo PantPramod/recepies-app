@@ -13,7 +13,8 @@ const Page = () => {
         prepTimeMinutes: 0,
         cookTimeMinutes: 0,
         serving: 0,
-        youtubeId: ''
+        youtubeId: '',
+        category: 'lunch'
     })
     const [ingredients, setIngredients] = useState([
         {
@@ -48,7 +49,7 @@ const Page = () => {
 
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault();
-        const { title, cookTimeMinutes, coverImage, description, prepTimeMinutes, serving, youtubeId } = data
+        const { title, cookTimeMinutes, coverImage, description, prepTimeMinutes, serving, youtubeId, category } = data
         const Steps = steps.map((step, index: number) => {
             return { ...step, no: index + 1 }
         })
@@ -66,7 +67,8 @@ const Page = () => {
                 ingredients,
                 steps: Steps,
                 nutritions,
-                youtubeId
+                youtubeId,
+                category
             })
             toast.success("Recipe published successfully.")
             console.log(data)
@@ -92,6 +94,16 @@ const Page = () => {
                         value={data.title}
                         onChange={(e) => setData({ ...data, title: e.target.value })}
                     />
+                </div>
+                <div className='mt-5'>
+                    <label>Category</label>
+                    <select
+                        className='border outline-none border-gray-400 w-full p-2 rounded-md capitalize'
+                        value={data.category}
+                        onChange={(e) => setData({ ...data, category: e.target.value })}
+                    >
+                        {categories.map(category => <option value={category} key={category}>{category}</option>)}
+                    </select>
                 </div>
                 <div className='mt-5'>
                     <label>Youtbe Id</label>
@@ -400,3 +412,6 @@ const Page = () => {
 }
 
 export default Page
+
+
+const categories = ["breakfast", "lunch", "dinner", "healthy_meal", "sweets"]

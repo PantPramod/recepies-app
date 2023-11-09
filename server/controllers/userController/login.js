@@ -6,7 +6,10 @@ export const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         const response = await User.findOne({ email });
-
+        if (!response.isVerified) {
+            res.status(400)
+            throw new Error("Email is not verified .check your email to Verify.")
+        }
         if (!response) {
             res.status(400)
             throw new Error("Email Not Exist!")

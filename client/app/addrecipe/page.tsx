@@ -55,6 +55,10 @@ const Page = () => {
 
     const [author, setAuthor] = useState('')
 
+    const [id, setId] = useState(0)
+
+    const [imageFor, setImageFor] = useState('coverImage')
+
     useEffect(() => {
         if (typeof window !== 'undefined')
             setAuthor(localStorage.getItem('name') ?? "Unknown")
@@ -100,6 +104,7 @@ const Page = () => {
     }, [])
 
     const getUsersImages = async () => {
+        setImageFor('coverImage')
         setShowImageGallery(true)
         try {
             const { data } = await axios.get(`/images/${userId}`)
@@ -109,6 +114,29 @@ const Page = () => {
         }
     }
 
+    const getUsersImages1 = async (id: number) => {
+        setImageFor("steps")
+        setId(id)
+        setShowImageGallery(true)
+        try {
+            const { data } = await axios.get(`/images/${userId}`)
+            setImages([...data])
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const saveActionHandler = () => {
+        if (imageFor === "coverImage") {
+            setData({ ...data, coverImage: selectedImage.url });
+
+        } else if (imageFor === "steps") {
+            let a = { ...steps[id], image: selectedImage.url }
+            steps[id] = a
+            setSteps([...steps])
+        }
+        setShowImageGallery(false)
+    }
 
     const uploadFile = (file: any) => {
         const storageRef = ref(storage, 'images/' + file.name);
@@ -396,8 +424,17 @@ const Page = () => {
                         />
                     </div>
                     <div className='mt-5 '>
-                        <label>Image url</label>
-                        <input
+
+                        <button
+                            type="button"
+                            className='bg-red-500 text-white py-2 px-8 block mx-auto'
+                            onClick={() => getUsersImages1(index)}
+                        >
+                            Select Image
+                        </button>
+                        {/* <label>Image url</label> */}
+
+                        {/* <input
                             type='text'
                             placeholder='image url'
                             className='border outline-none border-gray-400 w-full p-2 rounded-md'
@@ -407,7 +444,7 @@ const Page = () => {
                                 steps[index] = a
                                 setSteps([...steps])
                             }}
-                        />
+                        /> */}
                     </div>
                     <div className='mt-5 '>
                         <label>Description</label>
@@ -563,10 +600,7 @@ const Page = () => {
                             {/* <button
                                 onClick={() => { setData({ ...data, coverImage: selectedImage.url }); setShowImageGallery(false) }}
                                 className='block ml-auto mr-4 bg-green-600 hover:bg-green-800  text-white px-8 py-2 uppercase text-sm'>Save</button> */}
-                            <GallerySaveButton saveHandler={() => {
-                                setData({ ...data, coverImage: selectedImage.url });
-                                setShowImageGallery(false)
-                            }}
+                            <GallerySaveButton saveHandler={saveActionHandler}
                             />
                         </div>
                     </div>

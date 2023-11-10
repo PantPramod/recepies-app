@@ -1,12 +1,24 @@
 'use client'
-import axios from 'axios'
+import axios from '@/axios/axios'
 import React, { SyntheticEvent, useState, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify'
 import baseUrl from '@/config/baseUrl';
-
+import { GrDocumentUpload } from 'react-icons/gr'
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from '@/firebase/config';
+import { BiSolidCheckboxChecked } from 'react-icons/bi'
 const Page = () => {
+
+    const [progress, setProgress] = useState(0)
+    const [userId, setUserId] = useState('')
+    const [images, setImages] = useState<any>([])
+    const [showImageGallery, setShowImageGallery] = useState(false)
+    const [showProgressBar, setShowProgressBar] = useState(false)
+
+    const [selectedImage, setSelectedImage] = useState({ url: "", userId: "" })
+
     const [data, setData] = useState({
         title: '',
         coverImage: '',
@@ -45,7 +57,7 @@ const Page = () => {
 
     useEffect(() => {
         if (typeof window !== 'undefined')
-            setAuthor(localStorage.getItem('name') ?? "")
+            setAuthor(localStorage.getItem('name') ?? "Unknown")
     })
 
     const submitHandler = async (e: SyntheticEvent) => {
@@ -80,6 +92,83 @@ const Page = () => {
 
         }
     }
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setUserId(localStorage.getItem("_id") ?? "");
+        }
+    }, [])
+
+    const getUsersImages = async () => {
+        setShowImageGallery(true)
+        try {
+            const { data } = await axios.get(`/images/${userId}`)
+            setImages([...data])
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+    const uploadFile = (file: any) => {
+        const storageRef = ref(storage, 'images/' + file.name);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                setShowProgressBar(true)
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setProgress(progress)
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                }
+            },
+            (error) => {
+
+                switch (error.code) {
+                    case 'storage/unauthorized':
+
+                        break;
+                    case 'storage/canceled':
+
+                        break;
+
+                    // ...
+
+                    case 'storage/unknown':
+
+                        break;
+                }
+            },
+            () => {
+
+                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                    console.log('File available at', downloadURL);
+                    try {
+                        const { data } = await axios.post(`/images`, {
+                            userId,
+                            url: downloadURL
+                        })
+                        getUsersImages()
+                        console.log(data)
+                        setShowProgressBar(false)
+                    } catch (err) {
+                        console.log(err)
+                        setShowProgressBar(false)
+                    }
+                });
+            }
+        );
+    }
+
     return (
         <div className=''>
             <ToastContainer toastStyle={{ backgroundColor: "white" }} />
@@ -116,15 +205,30 @@ const Page = () => {
                         onChange={(e) => setData({ ...data, youtubeId: e.target.value })}
                     />
                 </div>
-                <div className='mt-5'>
-                    <label>Cover Image url</label>
-                    <input
-                        type='text'
-                        className='border outline-none border-gray-400 w-full p-2 rounded-md'
-                        placeholder='coverImage'
-                        value={data.coverImage}
-                        onChange={(e) => setData({ ...data, coverImage: e.target.value })}
-                    />
+                <div className='mt-5 flex flex-col items-center bg-gray-200 py-10 rounded-3xl border-dashed'>
+
+                    <button
+                        type="button"
+                        className='bg-red-500 text-white py-2 px-8 block mx-auto'
+                        onClick={getUsersImages}
+                    >
+                        Select Cover Image
+                    </button>
+                    {data.coverImage && <>
+                        <p className='text-center mt-5'>
+                            <img
+                                src={data.coverImage}
+                                alt=""
+                                width={50}
+                                height={50}
+                            />
+                        </p>
+                        <BiSolidCheckboxChecked className="text-green-600 mx-auto block mt-5" size={30}
+                        />
+                    </>
+                    }
+
+
                 </div>
                 <div className='flex items-center justify-between mt-5 '>
                     <div className='w-[30%]'>
@@ -408,6 +512,66 @@ const Page = () => {
                     className='bg-gray-500 hover:bg-gray-800 transition-all ease-in-out duration-300 text-white mt-5 rounded-md p-3 py-1 block ml-auto'>+</button>
                 <button type='submit' className='mt-10 mb-10 w-full bg-gray-800 hover:bg-black transition-all ease-in-out duration-300 text-white p-2 rounded-md'>Publish</button>
             </form>
+
+            {
+                showImageGallery &&
+                <div className='z-[99999999] fixed top-0 left-0 right-0 bottom-0 bg-[#00000018] flex items-center justify-center'>
+                    <div className='w-[80%] bg-white rounded-xl shadow-xl h-[80vh] overflow-y-auto'>
+                        <AiOutlineClose
+                            cursor="pointer"
+                            className='block ml-auto mr-2 mt-2'
+                            size={25}
+                            onClick={() => setShowImageGallery(false)}
+                        />
+                        <hr className='mt-5' />
+                        <hr />
+
+                        <div className='p-4'>
+                            <div className='relative'>
+                                <button className='w-[200px] h-[60px] bg-gray-300 text-black px-8 py-4 rounded-md mx-auto block mb-5'>
+                                    Browse Files
+                                    <GrDocumentUpload className="inline-block ml-2" />
+                                </button>
+                                <input
+                                    type="file"
+                                    onChange={(e: any) => { uploadFile(e.target.files[0]) }}
+                                    className='border border-red-600 py-2 w-[200px] h-[60px] absolute left-1/2 top-1/2 z-[11111] -translate-x-1/2 -translate-y-1/2 opacity-0 cursor-pointer'
+                                />
+                            </div>
+                            {
+                                showProgressBar
+                                &&
+                                <div className='w-[350px] border h-2.5  border-black mx-auto rounded-s'>
+                                    <div style={{ width: `${progress}%` }} className='bg-green-600 h-2 transition-all ease-in-out duration-300'></div>
+                                </div>
+                            }
+                            <hr className='my-6' />
+                            <div className='flex flex-wrap items-center gap-y-4 gap-x-4 object-contain'>
+                                {images.map((image: { url: string, userId: string }) => <img
+                                    src={image?.url}
+                                    alt=""
+                                    className='cursor-pointer hover:border border-[#186f65] transition-all ease-in-out duration-75'
+                                    width={200}
+                                    height={150}
+                                    key={image?.url}
+                                    onClick={() => setSelectedImage(image)}
+                                    style={image.url === selectedImage.url ? { border: "4px solid yellow" } : {}}
+                                />)}
+
+
+                            </div>
+                            {/* <button
+                                onClick={() => { setData({ ...data, coverImage: selectedImage.url }); setShowImageGallery(false) }}
+                                className='block ml-auto mr-4 bg-green-600 hover:bg-green-800  text-white px-8 py-2 uppercase text-sm'>Save</button> */}
+                            <GallerySaveButton saveHandler={() => {
+                                setData({ ...data, coverImage: selectedImage.url });
+                                setShowImageGallery(false)
+                            }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
@@ -416,3 +580,14 @@ export default Page
 
 
 const categories = ["breakfast", "lunch", "dinner", "healthy_meal", "sweets"]
+
+
+type propTypes = {
+    saveHandler: () => void
+}
+
+const GallerySaveButton = ({ saveHandler }: propTypes) => {
+    return (<button
+        onClick={saveHandler}
+        className='block ml-auto mr-4 bg-green-600 hover:bg-green-800  text-white px-8 py-2 uppercase text-sm'>Save</button>)
+}

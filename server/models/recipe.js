@@ -23,7 +23,7 @@ const recipeSchema = new mongoose.Schema({
         {
             no: String,
             title: String,
-            image: [{ type: String }],
+            image: { type: String },
             description: String
         }
     ],

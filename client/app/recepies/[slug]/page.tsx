@@ -134,7 +134,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             <p className='mt-10 font-bold sm:w-1/2'>Step {index + 1}:-{" "}{step?.title}</p>
 
             <p className='mt-3 sm:w-1/2'>{step?.description}</p>
-            <img src={step?.image[0] ?? "https://www.allrecipes.com/thmb/lf56yDXykbAFIYvRtwfpGYRbFr4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7497387-chickpea-tikka-masala-ddmfs-step-1-1752-b6d361881b5148f29f99cd09bde68424.jpg"}
+            <img src={step?.image ?? "https://www.allrecipes.com/thmb/lf56yDXykbAFIYvRtwfpGYRbFr4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/7497387-chickpea-tikka-masala-ddmfs-step-1-1752-b6d361881b5148f29f99cd09bde68424.jpg"}
               alt=""
               className='mt-4 sm:w-1/2'
             />

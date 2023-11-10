@@ -70,6 +70,7 @@ const Page = () => {
         const Steps = steps.map((step, index: number) => {
             return { ...step, no: index + 1 }
         })
+        console.log(steps);
 
         try {
             const { data } = await axios.post(`${baseUrl}recipe`, {
@@ -125,12 +126,14 @@ const Page = () => {
             console.log(err)
         }
     }
-
+    console.log(imageFor, id, steps)
     const saveActionHandler = () => {
         if (imageFor === "coverImage") {
             setData({ ...data, coverImage: selectedImage.url });
+            console.log("In coverImage section")
 
         } else if (imageFor === "steps") {
+            console.log("in steps section")
             let a = { ...steps[id], image: selectedImage.url }
             steps[id] = a
             setSteps([...steps])
@@ -237,7 +240,7 @@ const Page = () => {
 
                     <button
                         type="button"
-                        className='bg-red-500 text-white py-2 px-8 block mx-auto'
+                        className='bg-red-500 text-white py-2 px-8 block mx-auto rounded-md'
                         onClick={getUsersImages}
                     >
                         Select Cover Image
@@ -424,27 +427,23 @@ const Page = () => {
                         />
                     </div>
                     <div className='mt-5 '>
-
+<div className='bg-gray-200 py-10 rounded-3xl border border-dashed border-red-500'>
                         <button
                             type="button"
-                            className='bg-red-500 text-white py-2 px-8 block mx-auto'
+                            className='bg-red-500 text-white py-2 px-8 block mx-auto rounded-md'
                             onClick={() => getUsersImages1(index)}
                         >
                             Select Image
                         </button>
-                        {/* <label>Image url</label> */}
-
-                        {/* <input
-                            type='text'
-                            placeholder='image url'
-                            className='border outline-none border-gray-400 w-full p-2 rounded-md'
-                            value={step.image}
-                            onChange={(e) => {
-                                let a = { ...step, image: e.target.value }
-                                steps[index] = a
-                                setSteps([...steps])
-                            }}
-                        /> */}
+                        {step?.image &&
+                            <img
+                                src={step?.image }
+                                width={70}
+                                height={70}
+                                className='mt-4 mb-3 mx-auto'
+                            />
+                        }
+                        </div>
                     </div>
                     <div className='mt-5 '>
                         <label>Description</label>

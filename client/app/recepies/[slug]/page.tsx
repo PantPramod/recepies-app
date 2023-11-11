@@ -92,7 +92,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             width="420"
             height="315"
             src={`https://www.youtube.com/embed/${youtubeId}?controls=1`}
-            className='mt-10 w-1/2'
+            className='mt-10 w-full sm:w-1/2'
           >
           </iframe>
         }

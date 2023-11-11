@@ -40,7 +40,7 @@ const Header = ({ access }: propTypes) => {
       setName(localStorage.getItem("name") ?? "");
       setUserId(localStorage.getItem("_id") ?? "");
     }
-  }, [])
+  }, [flag])
 
   const getData = async () => {
     try {
@@ -124,13 +124,13 @@ const Header = ({ access }: propTypes) => {
             onClick={() => { router.push('/'); setShowMenu(false) }}
             className='py-4 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><AiFillHome className='inline-block mr-2' size={25} /> Home</li>
           <li
-            onClick={() => { router.push('/recepies'); setShowMenu(false) }}
+            onClick={() => { router.push('/category'); setShowMenu(false) }}
             className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
             <MdFastfood
               className="inline-block mr-2"
               size={25}
             />
-            Receipes
+            Categoris
           </li>
           <li className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><TbFileInfo className="inline-block mr-2" size={25} /> About</li>
           <li className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'><BiSolidContact className="inline-block mr-2" size={25} />Contact</li>

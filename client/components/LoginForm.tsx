@@ -9,9 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { saveUserDataLocalStorage } from '@/app/helper/saveUserDataLocalStorage'
 import { useRouter } from 'next/navigation'
 import axios from '@/axios/axios'
+import { useAppDispatch } from '@/app/Redux/hooks'
+import { toogleFlag } from '@/app/Redux/Features/counterSlice'
 
 const LoginForm = () => {
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -38,6 +41,7 @@ const LoginForm = () => {
                 _id: data?._id
             })
             toast.success("Logged In Successfully")
+            dispatch(toogleFlag())
             saveToken(data?.token)
             router.push('/')
 

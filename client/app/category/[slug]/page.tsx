@@ -1,8 +1,7 @@
 import Card from '@/components/Card'
-import baseUrl from '@/config/baseUrl'
 import React from 'react'
 async function getData(cat: string) {
-    const res = await fetch(`${baseUrl}recipe/category/${cat}`, { next: { revalidate: 5 } })
+    const res = await fetch(`${process.env.BASE_URL}recipe/category/${cat}`, { next: { revalidate: 5 } })
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
 

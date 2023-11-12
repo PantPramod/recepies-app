@@ -7,10 +7,10 @@ import { AiFillCheckCircle, AiOutlineStar } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 import { IoMdShareAlt } from 'react-icons/io'
 import 'react-toastify/dist/ReactToastify.css';
-import baseUrl from '@/config/baseUrl'
+
 
 async function getData(a: string) {
-  const res = await fetch(`${baseUrl}recipe/${a}`)
+  const res = await fetch(`${process.env.BASE_URL}recipe/${a}`)
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 

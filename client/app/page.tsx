@@ -1,10 +1,10 @@
 import Card, { propTypes } from '@/components/Card'
 import ReactCarousel from '@/components/ReactCarousel'
 import React from 'react'
-import baseUrl from '@/config/baseUrl'
+
 
 async function getData() {
-  const res = await fetch(`${baseUrl}recipe`, { next: { revalidate: 5 } })
+  const res = await fetch(`${process.env.BASE_URL}recipe`, { next: { revalidate: 5 } })
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
@@ -16,9 +16,12 @@ async function getData() {
   return res.json()
 }
 
+
+
 const Page = async () => {
   const recipes = await getData()
-  console.log(recipes)
+
+  console.log("==========================>",process.env.BASE_URL)
   return (
     <div className='bg-[#F0F9F9] min-h-screen max-w-screen overflow-x-hidden'>
       {/* <ReactCarousel /> */}

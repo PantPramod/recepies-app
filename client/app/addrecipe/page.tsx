@@ -4,7 +4,6 @@ import React, { SyntheticEvent, useState, useEffect } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify'
-import baseUrl from '@/config/baseUrl';
 import { GrDocumentUpload } from 'react-icons/gr'
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from '@/firebase/config';
@@ -73,7 +72,7 @@ const Page = () => {
         console.log(steps);
 
         try {
-            const { data } = await axios.post(`${baseUrl}recipe`, {
+            const { data } = await axios.post(`${process.env.BASE_URL}recipe`, {
                 title,
                 rating: 5,
                 author,
@@ -427,22 +426,22 @@ const Page = () => {
                         />
                     </div>
                     <div className='mt-5 '>
-<div className='bg-gray-200 py-10 rounded-3xl border border-dashed border-red-500'>
-                        <button
-                            type="button"
-                            className='bg-red-500 text-white py-2 px-8 block mx-auto rounded-md'
-                            onClick={() => getUsersImages1(index)}
-                        >
-                            Select Image
-                        </button>
-                        {step?.image &&
-                            <img
-                                src={step?.image }
-                                width={70}
-                                height={70}
-                                className='mt-4 mb-3 mx-auto'
-                            />
-                        }
+                        <div className='bg-gray-200 py-10 rounded-3xl border border-dashed border-red-500'>
+                            <button
+                                type="button"
+                                className='bg-red-500 text-white py-2 px-8 block mx-auto rounded-md'
+                                onClick={() => getUsersImages1(index)}
+                            >
+                                Select Image
+                            </button>
+                            {step?.image &&
+                                <img
+                                    src={step?.image}
+                                    width={70}
+                                    height={70}
+                                    className='mt-4 mb-3 mx-auto'
+                                />
+                            }
                         </div>
                     </div>
                     <div className='mt-5 '>

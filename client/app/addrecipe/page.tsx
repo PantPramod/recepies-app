@@ -15,9 +15,7 @@ const Page = () => {
     const [images, setImages] = useState<any>([])
     const [showImageGallery, setShowImageGallery] = useState(false)
     const [showProgressBar, setShowProgressBar] = useState(false)
-
     const [selectedImage, setSelectedImage] = useState({ url: "", userId: "" })
-
     const [data, setData] = useState({
         title: '',
         coverImage: '',
@@ -43,7 +41,6 @@ const Page = () => {
             description: ''
         }
     ])
-
     const [nutritions, setNutritions] = useState([
         {
             name: '',
@@ -51,17 +48,11 @@ const Page = () => {
             unit: '',
         }
     ])
-
     const [author, setAuthor] = useState('')
-
     const [id, setId] = useState(0)
-
     const [imageFor, setImageFor] = useState('coverImage')
 
-    useEffect(() => {
-        if (typeof window !== 'undefined')
-            setAuthor(localStorage.getItem('name') ?? "Unknown")
-    })
+    
 
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -88,20 +79,16 @@ const Page = () => {
                 category
             })
             toast.success("Recipe published successfully.")
-            console.log(data)
+            // console.log(data)
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             toast.error("something went wrong")
         } finally {
 
         }
     }
 
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setUserId(localStorage.getItem("_id") ?? "");
-        }
-    }, [])
+ 
 
     const getUsersImages = async () => {
         setImageFor('coverImage')
@@ -110,7 +97,7 @@ const Page = () => {
             const { data } = await axios.get(`/images/${userId}`)
             setImages([...data])
         } catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 
@@ -122,14 +109,14 @@ const Page = () => {
             const { data } = await axios.get(`/images/${userId}`)
             setImages([...data])
         } catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
-    console.log(imageFor, id, steps)
+    // console.log(imageFor, id, steps)
     const saveActionHandler = () => {
         if (imageFor === "coverImage") {
             setData({ ...data, coverImage: selectedImage.url });
-            console.log("In coverImage section")
+            // console.log("In coverImage section")
 
         } else if (imageFor === "steps") {
             console.log("in steps section")
@@ -150,7 +137,7 @@ const Page = () => {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 setShowProgressBar(true)
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setProgress(progress)
+                // setProgress(progress)
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
@@ -188,10 +175,10 @@ const Page = () => {
                             url: downloadURL
                         })
                         getUsersImages()
-                        console.log(data)
+                        // console.log(data)
                         setShowProgressBar(false)
                     } catch (err) {
-                        console.log(err)
+                        // console.log(err)
                         setShowProgressBar(false)
                     }
                 });
@@ -199,6 +186,13 @@ const Page = () => {
         );
     }
 
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setUserId(localStorage.getItem("_id") ?? "");
+            setAuthor(localStorage.getItem('name') ?? "Unknown")
+        }
+    }, [])
+  
     return (
         <div className=''>
             <ToastContainer toastStyle={{ backgroundColor: "white" }} />

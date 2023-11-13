@@ -16,10 +16,7 @@ const Page = () => {
     const [allRecipes, setAllRecipes] = useState<any>([])
     const flag = useAppSelector((state) => state.counter.flag);
     const dispatch = useAppDispatch()
-    useEffect(() => {
-        if (typeof window !== 'undefined')
-            setUserId(localStorage.getItem("_id") ?? "");
-    }, [])
+   
     const getData = async () => {
         try {
             const { data } = await axios.get(`/recipe/savedrecipe/${userId}`)
@@ -29,6 +26,10 @@ const Page = () => {
             console.log(err)
         }
     }
+    useEffect(() => {
+        if (typeof window !== 'undefined')
+            setUserId(localStorage.getItem("_id") ?? "");
+    }, [])
     useEffect(() => {
 
         if (userId)
@@ -41,13 +42,13 @@ const Page = () => {
             getData()
             dispatch(toogleFlag())
             toast.success("deleted from saved list")
-            console.log(data)
+            // console.log(data)
         } catch (err) {
-            console.log(err)
+            // console.log(err)
         }
     }
 
-    console.log("all", allRecipes)
+    // console.log("all", allRecipes)
     return (
         <div className='py-10 px-4 sm:px-10 md:px-14 xl:px-16'>
             <ToastContainer />

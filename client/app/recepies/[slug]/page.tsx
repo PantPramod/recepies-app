@@ -140,19 +140,14 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             />}
           </>)
         }
-
-        <div className='mt-10 flex items-center sm:w-1/2 gap-x-4'>
+       <div className='mt-10 flex items-center sm:w-1/2 gap-x-4'>
           <button className='w-1/2 bg-[#186F65] text-white py-3 rounded-md uppercase text-sm font-semibold hover:bg-[#22615a]'>
             I Made it
           </button>
 
           <PrintButton2 />
         </div>
-
-
-
-
-        {
+=  {
           nutritions && <>
             <p className='mt-10 font-bold text-2xl'>Nutritions</p>
             <div className='flex items-center sm:w-1/2 justify-between mt-5 bg-[#C7E8CA] p-4 rounded-md'>

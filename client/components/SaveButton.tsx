@@ -31,8 +31,14 @@ const SaveButton = ({ recipeId }: propTypes) => {
             toast.success("Recipe saved successfully.")
             console.log('Recipe saved successfully.');
         } catch (error: any) {
-            toast.error(error?.response?.data?.error)
-            console.error('Error saving recipe:', error);
+            if (error.response.data.message = `Cast to ObjectId failed for value "" (type string) at path "userId" for model "UserData"`) {
+                toast.error("Please Login for save functionality")
+            } else {
+                toast.error(error?.response?.data?.message)
+            }
+
+            // console.log(error)
+            // console.error('Error saving recipe:', error?.response?.data?.message);
         }
     };
     return (

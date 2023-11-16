@@ -16,6 +16,7 @@ const Page = () => {
     const [showImageGallery, setShowImageGallery] = useState(false)
     const [showProgressBar, setShowProgressBar] = useState(false)
     const [selectedImage, setSelectedImage] = useState({ url: "", userId: "" })
+    const [imageUrl, setImageUrl] = useState('')
     const [data, setData] = useState({
         title: '',
         coverImage: '',
@@ -51,8 +52,8 @@ const Page = () => {
     const [author, setAuthor] = useState('')
     const [id, setId] = useState(0)
     const [imageFor, setImageFor] = useState('coverImage')
+    const [error, setError] = useState(false)
 
-    
 
     const submitHandler = async (e: SyntheticEvent) => {
         e.preventDefault();
@@ -88,7 +89,7 @@ const Page = () => {
         }
     }
 
- 
+
 
     const getUsersImages = async () => {
         setImageFor('coverImage')
@@ -114,13 +115,17 @@ const Page = () => {
     }
     // console.log(imageFor, id, steps)
     const saveActionHandler = () => {
+        if (error) {
+            toast.error("Please Enter a valid Image Url")
+            return;
+        }
         if (imageFor === "coverImage") {
-            setData({ ...data, coverImage: selectedImage.url });
+            setData({ ...data, coverImage: imageUrl || selectedImage.url });
             // console.log("In coverImage section")
 
         } else if (imageFor === "steps") {
             console.log("in steps section")
-            let a = { ...steps[id], image: selectedImage.url }
+            let a = { ...steps[id], image: imageUrl || selectedImage.url }
             steps[id] = a
             setSteps([...steps])
         }
@@ -192,10 +197,10 @@ const Page = () => {
             setAuthor(localStorage.getItem('name') ?? "Unknown")
         }
     }, [])
-  
+
     return (
         <div className=''>
-            <ToastContainer toastStyle={{ backgroundColor: "white" }} />
+            <ToastContainer toastStyle={{ backgroundColor: "white", zIndex: 99999999 }} />
             <h2 className='text-3xl uppercase w-[90%] sm:w-[50%] mx-auto mt-10'>Add New Recipe</h2>
             <form
                 onSubmit={submitHandler}
@@ -574,21 +579,44 @@ const Page = () => {
                                     <div style={{ width: `${progress}%` }} className='bg-green-600 h-2 transition-all ease-in-out duration-300'></div>
                                 </div>
                             }
-                            <hr className='my-6' />
-                            <div className='flex flex-wrap items-center gap-y-4 gap-x-4 object-contain'>
-                                {images.map((image: { url: string, userId: string }) => <img
-                                    src={image?.url}
-                                    alt=""
-                                    className='cursor-pointer hover:border border-[#186f65] transition-all ease-in-out duration-75'
-                                    width={200}
-                                    height={150}
-                                    key={image?.url}
-                                    onClick={() => setSelectedImage(image)}
-                                    style={image.url === selectedImage.url ? { border: "4px solid yellow" } : {}}
-                                />)}
-
-
+                            <p className='text-center'>Or</p>
+                            <div className="flex items-center gap-x-2 mt-2">
+                                <label className='whitespace-nowrap'>Image Url</label>
+                                <input
+                                    type='text'
+                                    className='border outline-none border-gray-400 w-full p-2 rounded-md'
+                                    placeholder='image url'
+                                    value={imageUrl}
+                                    onChange={(e) => setImageUrl(e.target.value)}
+                                />
                             </div>
+                            <hr className='my-6' />
+                            {imageUrl ?
+                                <img
+                                    src={imageUrl}
+                                    className="block mx-auto border-4 border-[yellow]"
+                                    width={200}
+                                    height={200}
+                                    alt="No image found"
+                                    onError={() => { setError(true); toast.error("No image Found Please Enter a valid url.") }}
+                                    onLoad={() => { setError(false) }}
+                                /> :
+                                <div className='flex flex-wrap items-center gap-y-4 gap-x-4 object-contain'>
+                                    {images.map((image: { url: string, userId: string }) => <img
+                                        src={image?.url}
+                                        alt=""
+                                        className='cursor-pointer hover:border border-[#186f65] transition-all ease-in-out duration-75'
+                                        width={200}
+                                        height={150}
+                                        key={image?.url}
+                                        onClick={() => setSelectedImage(image)}
+                                        style={image.url === selectedImage.url ? { border: "4px solid yellow" } : {}}
+                                    />)}
+
+
+                                </div>
+                            }
+
                             {/* <button
                                 onClick={() => { setData({ ...data, coverImage: selectedImage.url }); setShowImageGallery(false) }}
                                 className='block ml-auto mr-4 bg-green-600 hover:bg-green-800  text-white px-8 py-2 uppercase text-sm'>Save</button> */}

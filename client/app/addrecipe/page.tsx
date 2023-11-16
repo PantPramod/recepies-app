@@ -64,7 +64,7 @@ const Page = () => {
         console.log(steps);
 
         try {
-            const { data } = await axios.post(`${process.env.BASE_URL}recipe`, {
+            const { data } = await axios.post(`/recipe`, {
                 title,
                 rating: 5,
                 author,

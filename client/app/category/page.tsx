@@ -2,7 +2,7 @@ import RoundedCard from '@/components/RoundedCard'
 import React from 'react'
 import wordToImage from '../helper/wordToImage'
 async function getData() {
-    const res = await fetch(`${process.env.BASE_URL}recipe/category`)
+    const res = await fetch(`${process.env.BASE_URL}recipe/category`, { next: { revalidate: 5 } })
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
 

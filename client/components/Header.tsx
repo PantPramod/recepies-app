@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from '@/app/Redux/hooks'
 import { toogleFlag } from '@/app/Redux/Features/counterSlice'
 import Image from 'next/image'
 import axios from '@/axios/axios'
-
+import { MdAddToQueue } from "react-icons/md";
 
 
 type propTypes = {
@@ -137,6 +137,15 @@ const Header = ({ access }: propTypes) => {
 
           {access ?
             <>
+            <li
+                onClick={() => { router.push('/addrecipe'); setShowMenu(false) }}
+                className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>
+               <MdAddToQueue 
+               className='inline mr-2'
+               size={25}
+               />
+                Add Recipe
+              </li>
               <li
                 onClick={() => { router.push('/savedrecipes'); setShowMenu(false) }}
                 className='py-4 mt-2 hover:text-[#FCE09B] hover:translate-x-1 transition-all ease-in-out duration-300 cursor-pointer'>

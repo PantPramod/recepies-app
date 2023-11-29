@@ -3,7 +3,6 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Footer from '@/components/Footer'
 import { cookies } from 'next/headers'
-import LowerHeader from '@/components/LowerHeader'
 import { Providers } from './Redux/Provider'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,7 +24,7 @@ export default function RootLayout({
       <body className={``}>
         <Providers>
           <Header access={access?.value || ''} />
-          <LowerHeader />
+          
           <div className='min-h-[calc(100vh-48px)]'>
             {children}
           </div>

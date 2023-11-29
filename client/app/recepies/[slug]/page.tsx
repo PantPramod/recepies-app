@@ -124,7 +124,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
         <p className='mt-10 font-bold text-2xl'>Ingredients</p>
         <ul className='list-disc ml-4 marker:text-[#186F65] list-outside sm:w-1/2'>
-          {ingredients.map((ingredient: any) => <li className='py-2' key={ingredient?._id}>{ingredient?.qty}{" "}{ingredient?.unit}{" "}{ingredient?.name}.{" "}{ingredient?.note}</li>)}
+          {ingredients.map((ingredient: any) => <li className='py-2' key={ingredient?._id}>{ingredient?.qty=='0'?"":ingredient?.qty}{" "}{ingredient?.unit}{" "}{ingredient?.name}.{" "}{ingredient?.note}</li>)}
         </ul>
 
         <p className='mt-10 font-bold text-2xl'>Directions</p>

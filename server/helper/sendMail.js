@@ -19,7 +19,7 @@ async function sendMail(sender, password, receiver, token) {
             to: receiver,
             subject: "Email Verification",
             text: `Send Email`,
-            html: `<a href="https://recepies-bl3673mcr-pantpramod.vercel.app/verifyemail?token=${token}">Veriy Email Address</a>`,
+            html: `<a href="https://recepies-app-theta.vercel.app/verifyemail?token=${token}">Click here to Veriy Email Address</a>`,
         });
 
         console.log("Message sent: %s", info.messageId);

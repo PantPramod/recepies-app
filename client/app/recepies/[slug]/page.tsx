@@ -11,14 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 async function getData(a: string) {
   const res = await fetch(`${process.env.BASE_URL}recipe/${a}`)
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data')
   }
-
   return res.json()
 }
 
@@ -39,8 +34,6 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             <Star rating={rating} />
           </div>
           <span className='text-xs border border-b border-b-[#186F65] font-semibold'>{rating}</span>
-          {/* <span className='text-xs border border-b border-b-[#186F65] uppercase font-bold'>2 Reviews</span>
-          <span className='text-xs border border-b border-b-[#186F65] uppercase font-bold'>1 Photos</span> */}
         </div>
         <p className='mt-2 w-full sm:w-1/2 text-justify'>{description}</p>
 
@@ -124,7 +117,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 
         <p className='mt-10 font-bold text-2xl'>Ingredients</p>
         <ul className='list-disc ml-4 marker:text-[#186F65] list-outside sm:w-1/2'>
-          {ingredients.map((ingredient: any) => <li className='py-2' key={ingredient?._id}>{ingredient?.qty=='0'?"":ingredient?.qty}{" "}{ingredient?.unit}{" "}{ingredient?.name}.{" "}{ingredient?.note}</li>)}
+          {ingredients.map((ingredient: any) => <li className='py-2' key={ingredient?._id}>{ingredient?.qty == '0' ? "" : ingredient?.qty}{" "}{ingredient?.unit}{" "}{ingredient?.name}.{" "}{ingredient?.note}</li>)}
         </ul>
 
         <p className='mt-10 font-bold text-2xl'>Directions</p>
@@ -140,14 +133,14 @@ const Page = async ({ params }: { params: { slug: string } }) => {
             />}
           </>)
         }
-       <div className='mt-10 flex items-center sm:w-1/2 gap-x-4'>
+        <div className='mt-10 flex items-center sm:w-1/2 gap-x-4'>
           <button className='w-1/2 bg-[#186F65] text-white py-3 rounded-md uppercase text-sm font-semibold hover:bg-[#22615a]'>
             I Made it
           </button>
 
           <PrintButton2 />
         </div>
-=  {
+        {
           nutritions && <>
             <p className='mt-10 font-bold text-2xl'>Nutritions</p>
             <div className='flex items-center sm:w-1/2 justify-between mt-5 bg-[#C7E8CA] p-4 rounded-md'>

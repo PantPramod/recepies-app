@@ -9,17 +9,14 @@ import 'react-toastify/dist/ReactToastify.css';
 const Page = () => {
     const searchParams = useSearchParams()
     const token = searchParams.get('token')
-
-    const [status, setStatus] = useState<string>('Not Verified')
+    const [status, setStatus] = useState<string>('Wait...')
 
     useEffect(() => {
-
         const getData = async () => {
             try {
-                const { data } = await axios.get('/user/verifyemail', {
+                 await axios.get('/user/verifyemail', {
                     params: { token }
                 })
-                console.log(data)
                 setStatus("Verified")
                 toast.success("Email Verified Successfully")
             } catch (err:any) {
@@ -35,10 +32,7 @@ const Page = () => {
         <div className='w-[80%] mx-auto'>
             <ToastContainer />
             <p className='text-2xl sm:text-3xl uppercase mt-10 text-center font-semibold'>Email Verification</p>
-
             <p className={` ${status!=="Verified"?"text-red-600 border-red-600":"text-green-600 border-red-600"} py-10 text-center border-dashed border border-black bg-gray-200 rounded-md mt-10 capitalize`}> {status}</p>
-
-
         </div>
     )
 }

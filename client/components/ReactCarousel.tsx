@@ -17,7 +17,6 @@ const ReactCarousel = () => {
                     src="/banner.jpg"
                     className='object-cover max-h-[70vh] w-full '
                 />
-                <button className=' bg-blue-500 text-white px-4 py-2 rounded-md  absolute left-2/3 top-[80%] hover:bg-blue-700 transition-all ease-in-out duration-300 '>View Recepie</button>
             </div>
             <div>
                 <img
@@ -27,7 +26,7 @@ const ReactCarousel = () => {
 
             </div>
             <div>
-            <img
+                <img
                     src="/banner3.jpg"
                     className='object-cover max-h-[70vh] w-full '
                 />

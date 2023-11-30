@@ -1,11 +1,8 @@
 import Header from '@/components/Header'
 import './globals.css'
-import { Inter } from 'next/font/google'
 import Footer from '@/components/Footer'
 import { cookies } from 'next/headers'
 import { Providers } from './Redux/Provider'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Delicious Receipes ',
@@ -24,7 +21,6 @@ export default function RootLayout({
       <body className={``}>
         <Providers>
           <Header access={access?.value || ''} />
-          
           <div className='min-h-[calc(100vh-48px)]'>
             {children}
           </div>

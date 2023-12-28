@@ -142,7 +142,7 @@ const Page = () => {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 setShowProgressBar(true)
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                // setProgress(progress)
+                setProgress(progress)
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
@@ -617,9 +617,7 @@ const Page = () => {
                                 </div>
                             }
 
-                            {/* <button
-                                onClick={() => { setData({ ...data, coverImage: selectedImage.url }); setShowImageGallery(false) }}
-                                className='block ml-auto mr-4 bg-green-600 hover:bg-green-800  text-white px-8 py-2 uppercase text-sm'>Save</button> */}
+                     
                             <GallerySaveButton saveHandler={saveActionHandler}
                             />
                         </div>

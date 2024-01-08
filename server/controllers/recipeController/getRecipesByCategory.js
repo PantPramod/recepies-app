@@ -10,6 +10,7 @@ const getRecipesByCategory = async (req, res, next) => {
 }
 
 
+
 export const getdistnictCategory = async (req, res, next) => {
     try {
         const response = await Recipe.distinct('category')

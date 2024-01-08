@@ -9,7 +9,11 @@ const wordToImage = (word: string) => {
         return "https://static.toiimg.com/photo/87304656.cms"
     else if (word === "healthy_meal")
         return "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/health/wp-content/uploads/2022/01/foods_to_eat_to_lose_weight.jpeg"
+    else if (word === "all")
+
+        return "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/health/wp-content/uploads/2022/01/foods_to_eat_to_lose_weight.jpeg"
+
     else return "https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/health/wp-content/uploads/2022/01/foods_to_eat_to_lose_weight.jpeg"
-} 
+}
 
 export default wordToImage
